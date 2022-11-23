@@ -423,32 +423,30 @@ impl State {
     }
 
     fn on_keyboard_input(&mut self, input: &winit::event::KeyEvent) {
-        let keycode = input.physical_key;
+        let key = input.physical_key;
         let pressed = input.state == winit::event::ElementState::Pressed;
 
         if pressed {
             // VirtualKeyCode::Paste etc in winit are broken/untrustworthy,
             // so we detect these things manually:
-            if is_cut_command(self.egui_input.modifiers, keycode) {
-                self.egui_input.events.push(egui::Event::Cut);
-            } else if is_copy_command(self.egui_input.modifiers, keycode) {
-                self.egui_input.events.push(egui::Event::Copy);
-            } else if is_paste_command(self.egui_input.modifiers, keycode) {
-                if let Some(contents) = self.clipboard.get() {
-                    self.egui_input
-                        .events
-                        .push(egui::Event::Paste(contents.replace("\r\n", "\n")));
-                }
-            }
+            // if is_cut_command(self.egui_input.modifiers, keycode) {
+            //     self.egui_input.events.push(egui::Event::Cut);
+            // } else if is_copy_command(self.egui_input.modifiers, keycode) {
+            //     self.egui_input.events.push(egui::Event::Copy);
+            // } else if is_paste_command(self.egui_input.modifiers, keycode) {
+            //     if let Some(contents) = self.clipboard.get() {
+            //         self.egui_input
+            //             .events
+            //             .push(egui::Event::Paste(contents.replace("\r\n", "\n")));
+            //     }
+            // }
         }
 
-        if let Some(key) = translate_virtual_key_code(input.physical_key) {
-            self.egui_input.events.push(egui::Event::Key {
-                key,
-                pressed,
-                modifiers: self.egui_input.modifiers,
-            });
-        }
+        // if let Some(key) = translate_virtual_key_code(input.physical_key) {
+        self.egui_input
+            .events
+            .push(egui::Event::RawKeyInput { key, pressed });
+        // }
     }
 
     /// Call with the output given by `egui`.

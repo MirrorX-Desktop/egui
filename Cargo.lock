@@ -1152,6 +1152,7 @@ dependencies = [
  "nohash-hasher",
  "ron",
  "serde",
+ "tao",
  "tracing",
 ]
 
@@ -3669,6 +3670,7 @@ dependencies = [
  "png",
  "raw-window-handle 0.5.0",
  "scopeguard",
+ "serde",
  "unicode-segmentation",
  "uuid",
  "windows 0.39.0",

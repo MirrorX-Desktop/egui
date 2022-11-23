@@ -268,6 +268,11 @@ pub enum Event {
         /// The value is in the range from 0.0 (no pressure) to 1.0 (maximum pressure).
         force: f32,
     },
+
+    RawKeyInput {
+        key: winit::keyboard::KeyCode,
+        pressed: bool,
+    },
 }
 
 /// Mouse button (or similar for touch input)
